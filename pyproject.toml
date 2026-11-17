@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "webgl-game-lab"
+version = "0.1.0"
+description = "Unity WebGL 运行时观测、滑雪赛道读取与计时实验"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["websockets>=12,<16"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[project.scripts]
+webgl-lab = "webgl_game_lab.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/webgl_game_lab"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: uv venv && uv pip install -e '.[dev]'
+      - run: .venv/bin/ruff check src tests
+      - run: .venv/bin/pytest -q
